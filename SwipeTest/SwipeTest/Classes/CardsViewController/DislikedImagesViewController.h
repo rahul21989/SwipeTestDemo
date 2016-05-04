@@ -1,5 +1,5 @@
 //
-//  DraggableViewContainer.h
+//  DislikeViewController.h
 //  SwipeTest
 //
 //  Created by Rahul on 03/05/16.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DraggableViewContainer : UIView
+@interface DislikedImagesViewController : UIViewController
 
 @end

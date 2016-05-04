@@ -1,5 +1,5 @@
 //
-//  DislikeViewController.h
+//  LikeViewController.h
 //  SwipeTest
 //
 //  Created by Rahul on 03/05/16.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DislikeViewController : UIViewController
+@interface LikedImagesViewController : UIViewController
 
 @end

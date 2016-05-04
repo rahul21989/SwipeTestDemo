@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CardTableViewCell : UITableViewCell
+@interface CustomImageTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet UILabel *cardTitleLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *cardImageView;
-
 
 -(void)customizeCell:(UIView *)card;
 

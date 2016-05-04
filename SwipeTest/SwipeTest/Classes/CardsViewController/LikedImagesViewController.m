@@ -1,25 +1,27 @@
 //
-//  LikeViewController.m
+//  LikedImagesViewController.m
 //  SwipeTest
 //
 //  Created by Rahul on 03/05/16.
 //  Copyright © 2016 Rahul. All rights reserved.
 //
 
-#import "LikeViewController.h"
-#import "SceneManager.h"
-#import "CardTableViewCell.h"
+#import "LikedImagesViewController.h"
+#import "CustomImageTableViewCell.h"
+#import "DataStorageManager.h"
 
-static NSString *likeCardCellIdentifier = @"CardTableViewCell";
 
-@interface LikeViewController ()
+
+static NSString *likeCardCellIdentifier = @"CustomImageTableViewCell";
+
+@interface LikedImagesViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableView *likeListTable;
-@property (strong, nonatomic) NSMutableArray *likeCardsData;
+@property (strong, nonatomic) NSArray *likeCardsData;
 
 @end
 
-@implementation LikeViewController
+@implementation LikedImagesViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -28,7 +30,7 @@ static NSString *likeCardCellIdentifier = @"CardTableViewCell";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-  _likeCardsData = [SceneManager sharedManager].likeList;
+  _likeCardsData = [[DataStorageManager sharedManager] findAllLikedImages];
   [self.likeListTable reloadData];
 }
 
@@ -52,12 +54,14 @@ static NSString *likeCardCellIdentifier = @"CardTableViewCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
-  CardTableViewCell *cell = (CardTableViewCell *)[tableView dequeueReusableCellWithIdentifier:likeCardCellIdentifier];
+  CustomImageTableViewCell *cell = (CustomImageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:likeCardCellIdentifier];
   
   if ([_likeCardsData objectAtIndex:indexPath.row]!=nil) {
     [cell customizeCell:[_likeCardsData objectAtIndex:indexPath.row]];
     cell.cardImageView.backgroundColor = [UIColor cyanColor];
   }
+  
+  cell.selectionStyle = UITableViewCellSelectionStyleNone;
   
   return cell;
   

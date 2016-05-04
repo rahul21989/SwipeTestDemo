@@ -6,21 +6,20 @@
 //  Copyright © 2016 Rahul. All rights reserved.
 //
 
-#import "DislikeViewController.h"
+#import "DislikedImagesViewController.h"
+#import "CustomImageTableViewCell.h"
+#import "DataStorageManager.h"
 
-#import "SceneManager.h"
-#import "CardTableViewCell.h"
+static NSString *disLikeCardCellIdentifier = @"CustomImageTableViewCell";
 
-static NSString *disLikeCardCellIdentifier = @"CardTableViewCell";
-
-@interface DislikeViewController ()
+@interface DislikedImagesViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableView *dislikeCardListTable;
-@property (strong, nonatomic) NSMutableArray *dislikeCardsData;
+@property (strong, nonatomic) NSArray *dislikeCardsData;
 
 @end
 
-@implementation DislikeViewController
+@implementation DislikedImagesViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -29,7 +28,7 @@ static NSString *disLikeCardCellIdentifier = @"CardTableViewCell";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-  _dislikeCardsData = [SceneManager sharedManager].dislikeList;
+  _dislikeCardsData = [[DataStorageManager sharedManager] findAllDisLikedImages];
   [self.dislikeCardListTable reloadData];
 }
 
@@ -52,13 +51,15 @@ static NSString *disLikeCardCellIdentifier = @"CardTableViewCell";
 #pragma mark - Cell Layout Handlers
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  CardTableViewCell *cell = (CardTableViewCell *)[tableView dequeueReusableCellWithIdentifier:disLikeCardCellIdentifier];
+  CustomImageTableViewCell *cell = (CustomImageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:disLikeCardCellIdentifier];
   
   if ([_dislikeCardsData objectAtIndex:indexPath.row]!=nil) {
     [cell customizeCell:[_dislikeCardsData objectAtIndex:indexPath.row]];
     cell.cardImageView.backgroundColor = [UIColor lightGrayColor];
   }
   
+  cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
   return cell;
   
 }
